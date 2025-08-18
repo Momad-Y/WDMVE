@@ -4,24 +4,58 @@
  * @param {string} file - The path to the script file to be injected.
  */
 function injectScript(file) {
-    const script = document.createElement("script"); // create a script element
+    const script = document.createElement("script");
     script.src = chrome.runtime.getURL(file); // ensures correct extension URL
-    script.type = "text/javascript"; // set script type
-    (document.head || document.documentElement).appendChild(script); // append to head or document element
-
-    // Remove the script after it loads to avoid cluttering the DOM
+    script.type = "text/javascript";
     script.onload = function () {
-        this.remove();
+        this.remove(); // Clean up after loading
     };
+    script.onerror = function () {
+        console.error(`Failed to load script: ${file}`);
+    };
+    (document.head || document.documentElement).appendChild(script);
 }
 
-// Start the script execution on page load
-document.addEventListener("DOMContentLoaded", () => {
-    if (document.URL.includes("youtube.com/watch")) {
+/**
+ * Check if current page is a YouTube watch page.
+ */
+function isYouTubeWatchPage() {
+    return (
+        window.location.hostname.includes("youtube.com") &&
+        window.location.pathname === "/watch"
+    );
+}
+
+/**
+ * Initialize injection when page is ready.
+ */
+function init() {
+    if (isYouTubeWatchPage()) {
         injectScript("scripts/inject-api.js");
         injectScript("scripts/yt-helper.js");
         console.log("YouTube video page detected. Helper scripts injected.");
     } else {
         console.warn("Not a YouTube video page. No scripts injected.");
+    }
+}
+
+// Run on initial
+init();
+
+// Also listen for SPA navigation changes
+chrome.runtime.onMessage.addListener((msg) => {
+    if (msg === "urlChanged") {
+        init();
+    }
+});
+
+// Listen for messages from the injected script to handle end time updates
+window.addEventListener("message", (event) => {
+    if (event.source !== window) return;
+    if (event.data.type && event.data.type === "YT_END_TIME") {
+        chrome.runtime.sendMessage({
+            type: "YT_END_TIME",
+            value: event.data.value,
+        });
     }
 });
