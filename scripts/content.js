@@ -29,7 +29,7 @@ function isYouTubeWatchPage() {
 /**
  * Initialize injection when page is ready.
  */
-function init() {
+function main() {
     if (isYouTubeWatchPage()) {
         injectScript("scripts/inject-api.js");
         injectScript("scripts/yt-helper.js");
@@ -39,13 +39,10 @@ function init() {
     }
 }
 
-// Run on initial
-init();
-
 // Also listen for SPA navigation changes
 chrome.runtime.onMessage.addListener((msg) => {
     if (msg === "urlChanged") {
-        init();
+        main();
     }
 });
 
@@ -59,3 +56,6 @@ window.addEventListener("message", (event) => {
         });
     }
 });
+
+// Run on initial
+main();
