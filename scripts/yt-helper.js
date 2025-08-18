@@ -1,4 +1,4 @@
-const UPDATE_INTERVAL = 500; // Update every x milliseconds
+const UPDATE_INTERVAL = 1000; // Update every x milliseconds
 
 let player;
 
@@ -13,11 +13,11 @@ function onYouTubeIframeAPIReady() {
 
         // Hook into the YouTube player (experimental)
         player = document.getElementById("movie_player");
+        let latestEndLocalTime = "—";
 
         if (player) {
             console.log("Movie player object found");
-            let latestEndLocalTime = "00:00:00"; // Initialize with a default time
-
+            // Start the interval to update the end time
             setInterval(() => {
                 try {
                     const currentVideoTime = player.getCurrentTime();
@@ -26,16 +26,23 @@ function onYouTubeIframeAPIReady() {
                         currentVideoTime,
                         videoLength
                     );
-
-                    if (endLocalTime !== latestEndLocalTime) {
-                        latestEndLocalTime = endLocalTime;
-                        console.log("End Local Time:", latestEndLocalTime);
-                    } else {
+                    if (latestEndLocalTime === endLocalTime) {
                         console.log(
-                            "End Local Time remains unchanged:",
-                            latestEndLocalTime
+                            "No change in end local time, skipping update"
                         );
+                        return; // No change, skip update
                     }
+                    latestEndLocalTime = endLocalTime;
+                    console.log("End local time updated:", endLocalTime);
+
+                    // Send the end time to the popup or background script
+                    window.postMessage(
+                        {
+                            type: "YT_END_TIME",
+                            value: endLocalTime,
+                        },
+                        "*"
+                    );
                 } catch (e) {
                     console.warn("Unable to get time yet", e);
                 }
@@ -56,7 +63,7 @@ function calculateEndTime(currentVideoTime, videoLength) {
 
     // ! For Debugging
     console.log(
-        `Current Video Time: ${currentVideoTime}, Video Length: ${videoLength}, remaining: ${remainingVideoTime}, current local time: ${currentLocalTime.toLocaleTimeString()}, end local time: ${endLocalTime.toLocaleTimeString()}`
+        `Current Video Time: ${currentVideoTime}, Video Length: ${videoLength}, remaining: ${remainingVideoTime}, current local time: ${currentLocalTime.toLocaleString()}, end local time: ${endLocalTime.toLocaleTimeString()}`
     );
 
     return endLocalTime.toLocaleTimeString();
