@@ -2,8 +2,9 @@ let latestEndLocalTime = "—";
 
 // Listen for updates from content script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === "UPDATE_END_TIME") {
-        latestEndLocalTime = message.data;
+    console.log("Received message in popup:", message);
+    if (message.type === "YT_END_TIME") {
+        latestEndLocalTime = message.value;
 
         if (chrome.storage && chrome.storage.local) {
             chrome.storage.local.set({ latestEndLocalTime });
@@ -15,6 +16,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Function to render the latest value into the popup
 function updatePopup() {
+    console.log(
+        "Updating popup with latest end local time:",
+        latestEndLocalTime
+    );
     const output = document.getElementById("endTimeDisplay");
     if (output) {
         output.textContent = `End Local Time: ${latestEndLocalTime}`;
@@ -23,6 +28,7 @@ function updatePopup() {
 
 // Load the last saved value when popup opens
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("Popup DOM loaded, initializing...");
     if (chrome.storage && chrome.storage.local) {
         chrome.storage.local.get(["latestEndLocalTime"], (result) => {
             if (result.latestEndLocalTime) {
