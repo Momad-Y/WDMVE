@@ -50,10 +50,22 @@ chrome.runtime.onMessage.addListener((msg) => {
 window.addEventListener("message", (event) => {
     if (event.source !== window) return;
     if (event.data.type && event.data.type === "YT_END_TIME") {
-        chrome.runtime.sendMessage({
-            type: "YT_END_TIME",
-            value: event.data.value,
-        });
+        try {
+            chrome.runtime.sendMessage({
+                type: "YT_END_TIME",
+                value: event.data.value,
+            });
+        } catch (err) {
+            if (err.message.includes("Extension context invalidated")) {
+                // This just means the extension was reloaded or popup closed
+                // Safe to ignore
+                console.debug(
+                    "Message not sent: extension context invalidated."
+                );
+            } else {
+                console.error("Unexpected error sending message:", err);
+            }
+        }
     }
 });
 
