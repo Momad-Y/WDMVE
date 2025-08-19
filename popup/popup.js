@@ -29,8 +29,8 @@ function updatePopup() {
     if (statusEl) {
         const isActive = latestEndLocalTime && latestEndLocalTime !== "—";
         statusEl.textContent = isActive
-            ? "✅ Playback Active"
-            : "❌ Playback Inactive";
+            ? "✅ Playback is currently active"
+            : "❌ Playback is currently inactive";
         statusEl.classList.toggle("active", isActive);
         statusEl.classList.toggle("inactive", !isActive);
     }
@@ -39,6 +39,15 @@ function updatePopup() {
 // Load the last saved value when popup opens
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Popup DOM loaded...");
+
+    // Add click event listener for settings icon
+    const settingsIcon = document.getElementById("settingsIcon");
+    if (settingsIcon) {
+        settingsIcon.addEventListener("click", () => {
+            chrome.runtime.openOptionsPage();
+        });
+    }
+
     if (chrome.storage?.local) {
         chrome.storage.local.get(["latestEndLocalTime"], (result) => {
             if (result.latestEndLocalTime) {

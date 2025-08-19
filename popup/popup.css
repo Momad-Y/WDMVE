@@ -1,14 +1,37 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #141e30, #243b55);
+    font-family: "Electrolize", sans-serif;
+    background: linear-gradient(135deg, #1a0b2e, #2d1b69, #4a1942);
     color: #fff;
-    width: 280px; /* smaller width */
-    min-height: 160px; /* smaller height */
+    width: 320px;
+    min-height: 160px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+.settings-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    background: rgba(255, 107, 157, 0.1);
+    border: 1px solid rgba(255, 107, 157, 0.3);
+    transition: all 0.3s ease;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+}
+
+.settings-icon:hover {
+    background: rgba(255, 107, 157, 0.2);
+    border-color: rgba(255, 107, 157, 0.5);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 107, 157, 0.4);
 }
 
 .popup-container {
@@ -18,25 +41,28 @@ body {
 }
 
 h1 {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     margin: 0;
-    color: #00c9ff;
+    color: #ff6b9d;
+    text-shadow: 0 0 8px rgba(255, 107, 157, 0.3);
 }
 
 h2 {
     font-size: 0.9rem;
     font-weight: 400;
     margin: 5px 0 15px;
-    color: #aaa;
+    color: #b8a9ff;
 }
 
 .video-info {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 107, 157, 0.2);
     border-radius: 12px;
     padding: 12px;
     margin-bottom: 12px;
     text-align: left;
     font-size: 0.85rem;
+    backdrop-filter: blur(10px);
 }
 
 .video-info p {
@@ -45,23 +71,27 @@ h2 {
 
 .label {
     font-weight: bold;
-    color: #00c9ff;
+    color: #4ecdc4;
 }
 
 .status {
     padding: 6px;
     border-radius: 8px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: bold;
     transition: all 0.3s ease;
 }
 
 .status.active {
-    background: #0a5c46;
+    background: linear-gradient(135deg, #ff6b9d, #c44569);
     color: #fff;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
 }
 
 .status.inactive {
-    background: #792b2b;
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
     color: #fff;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3);
 }

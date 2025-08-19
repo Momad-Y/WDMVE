@@ -5,25 +5,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description"
-        content="Ever paused a video just to wonder, 'When does this thing end?' WDMVE shows you the exact local time your video will finish—so you’ll know if you can squeeze in one more episode before midnight (or your next Zoom call).">
+        content="Ever paused a video just to wonder, 'When does this thing end?' WDMVE shows you the exact local time your video will finish—so you'll know if you can squeeze in one more episode before midnight (or your next Zoom call).">
     <meta name="keywords" content="WDMVE, video end time, YouTube, Netflix, video player extension, video timer">
     <meta name="author" content="Mohamed Abdelnasser">
     <meta name="theme-color" content="#ff0000">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WDMVE - When Does My Video End?</title>
     <link rel="stylesheet" href="popup.css">
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Oi&display=swap" rel="stylesheet">
 
 <body>
+    <div class="settings-icon" id="settingsIcon" title="Settings">⚙️</div>
+
     <div class="popup-container">
         <h1>⏳ WDMVE</h1>
         <h2>When Does My Video End?</h2>
 
         <div class="video-info">
-            <p><span class="label">🎬 Ends at:</span> <span id="endTime">--:--</span></p>
+            <p><span class="label">🎬 Current Video Ends at:</span> <span id="endTime">--:--</span></p>
         </div>
 
-        <div id="status" class="status inactive">❌ Playback Inactive</div>
+        <div id="status" class="status inactive">❌ Playback is currently inactive</div>
     </div>
 
     <script src="popup.js"></script>
