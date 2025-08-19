@@ -1,0 +1,6 @@
+1: Make it show on the video thumbnail when watching the video
+2: Handle different playback speeds
+2: Make it show on all pages not just the specific pages (Using Playback)
+3: Make it on the video thumbnail when browsing youtube
+4: Netflix Implemenation
+5: Settings Page
