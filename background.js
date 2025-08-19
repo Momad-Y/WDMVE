@@ -1,3 +1,15 @@
+/**
+ * Updates the browser extension icon based on the current tab's URL.
+ *
+ * Sets an "active" icon when the user is on supported video platforms
+ * (YouTube or Netflix), and a "default" icon for all other sites.
+ * This provides visual feedback about whether the extension is actively
+ * monitoring video playback on the current page.
+ *
+ * @param {number} tabId - The ID of the tab to update the icon for
+ * @param {string} url - The URL of the current tab
+ * @returns {void}
+ */
 function updateIcon(tabId, url) {
     if (!url) return;
 
