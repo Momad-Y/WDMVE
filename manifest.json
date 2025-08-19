@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "WDMVE - When Does My Video End?",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Ever paused a video just to wonder, 'When does this thing end?' WDMVE shows you the exact local time your video will finish—so you’ll know if you can squeeze in one more episode before midnight (or your next Zoom call).",
 
     "icons": {
