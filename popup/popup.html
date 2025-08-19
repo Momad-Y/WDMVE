@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>YouTube Helper</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 10px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description"
+        content="Ever paused a video just to wonder, 'When does this thing end?' WDMVE shows you the exact local time your video will finish—so you’ll know if you can squeeze in one more episode before midnight (or your next Zoom call).">
+    <meta name="keywords" content="WDMVE, video end time, YouTube, Netflix, video player extension, video timer">
+    <meta name="author" content="Mohamed Abdelnasser">
+    <meta name="theme-color" content="#ff0000">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WDMVE - When Does My Video End?</title>
+    <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
-    <h3>YouTube End Time</h3>
-    <div id="endTimeDisplay">Waiting for data...</div>
+    <div class="popup-container">
+        <h1>⏳ WDMVE</h1>
+        <h2>When Does My Video End?</h2>
+
+        <div class="video-info">
+            <p><span class="label">🎬 Ends at:</span> <span id="endTime">--:--</span></p>
+        </div>
+
+        <div id="status" class="status inactive">❌ Playback Inactive</div>
+    </div>
+
     <script src="popup.js"></script>
 </body>
 
